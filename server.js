@@ -1,27 +1,39 @@
 
 
+
+
 const express = require('express')
-
-const app = express();
 const bodyParser = require('body-parser');
-
 const cors = require('cors');
 
-const port = 5000
+const app = express();
+const port = 5000;
+const nodemailer = require('nodemailer');
 
+
+
+
+// Configuring body parser middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
+
+
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-
+/*
 app.use(cors({
   origin: '*'
 }));   
+*/
 
-
+/*
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
 
@@ -41,6 +53,7 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
+*/
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -48,15 +61,13 @@ app.get('/', (req, res) => {
 
 
 
-
-
-app.get('/Test', function (req, res) {
+app.get('/Test', function (req, res) { 
   var listResultObJ = "okkkkkkkkkk";
   res.send(listResultObJ);
 })
 
 
-app.post('/SendEmail', function (req, res) { 
+app.post('/SendEmail', function (req, res) {    
   var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -65,7 +76,7 @@ app.post('/SendEmail', function (req, res) {
       }
     });
     
-    var reqObj = JSON.parse(req.body.jsonObj);
+    var reqObj = req.body;
 
     var subject = reqObj["name"] + " - "  + reqObj["email"] + " - " + reqObj["address"] + " - " + reqObj["phone"] + " - " + reqObj["subject"];
     var text = reqObj["message"];
