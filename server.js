@@ -24,7 +24,7 @@ app.listen(port, () => {
 
 app.use(cors({
   origin: '*'
-}));   
+}));
 
 
 
@@ -55,24 +55,27 @@ app.get('/', (req, res) => {
 
 
 
-app.get('/Test', function (req, res) { 
+app.get('/Test', function (req, res) {
   var listResultObJ = "okkkkkkkkkk";
   res.send(listResultObJ);
 })
 
 
-app.post('/SendEmail', function (req, res) {    
-  var transporter = nodemailer.createTransport({
+app.post('/SendEmail', function (req, res) {
+
+  try {
+    var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: 'testeee777@gmail.com',
         pass: 'ulananlpkmktdtcb'
       }
     });
-    
+
+
     var reqObj = req.body;
 
-    var subject = reqObj["name"] + " - "  + reqObj["email"] + " - " + reqObj["address"] + " - " + reqObj["phone"] + " - " + reqObj["subject"];
+    var subject = reqObj["name"] + " - " + reqObj["email"] + " - " + reqObj["address"] + " - " + reqObj["phone"] + " - " + reqObj["subject"];
     var text = reqObj["message"];
 
     var mailOptions = {
@@ -81,9 +84,9 @@ app.post('/SendEmail', function (req, res) {
       subject: subject,
       text: text
     };
-    
-      
-    transporter.sendMail(mailOptions, function(error, info){
+
+
+    transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
         res.send(error);
@@ -91,8 +94,15 @@ app.post('/SendEmail', function (req, res) {
         console.log('Email sent!');
         res.send(info);
       }
-      
+
     });
+  } 
+  
+  catch (error) {
+    console.log('Email Not sent!');
+    res.send(error);
+  }
+
 })
 
 
