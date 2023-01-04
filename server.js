@@ -1,7 +1,6 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
-//var morgan = require('morgan');
 var config = require("./config");
 
 var nodemailer = require('nodemailer');
@@ -9,13 +8,8 @@ var nodemailer = require('nodemailer');
 
 var app = express();
 
-app.use(express.static(__dirname + "\public"))
 
-
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-
-LoadFile();
+//LoadFile();
 
 
 
@@ -58,7 +52,7 @@ app.post('/SendEmail', function (req, res) {
 
 
 
-
+/*
 function LoadFile() {
     app.use(express.static(__dirname + "\public"))
     app.use(bodyParser.json())
@@ -85,6 +79,7 @@ function LoadFile() {
         }
     })
 }
+*/
 
 
 
