@@ -61,7 +61,7 @@ app.get('/Test', function (req, res) {
 })
 
 
-app.post('/SendEmail', function (req, res) {
+app.post('/SendEmail', function (req, res) { 
 
   try {
     var transporter = nodemailer.createTransport({
