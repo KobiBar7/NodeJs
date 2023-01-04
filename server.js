@@ -1,7 +1,5 @@
 
 
-
-
 const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -12,13 +10,9 @@ const nodemailer = require('nodemailer');
 
 
 
-
 // Configuring body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-
-
 
 
 
@@ -27,13 +21,13 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-/*
+
 app.use(cors({
   origin: '*'
 }));   
-*/
 
-/*
+
+
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
 
@@ -53,7 +47,7 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
-*/
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
