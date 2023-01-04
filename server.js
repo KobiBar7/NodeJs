@@ -10,6 +10,11 @@ app.listen(port, () => {
 })
 
 
+app.use(cors({
+  origin: '*'
+}));   
+
+
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
 
@@ -69,6 +74,7 @@ app.post('/SendEmail', function (req, res) {
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
         console.log(error);
+        res.send(error);
       } else {
         console.log('Email sent!');
         res.send(info);
