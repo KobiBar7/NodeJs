@@ -61,7 +61,7 @@ app.get('/Test', function (req, res) {
 })
 
 
-app.post('/SendEmail', function (req, res) { 
+app.post('/SendEmail', function (req, res) {
 
   try {
     var transporter = nodemailer.createTransport({
@@ -75,14 +75,71 @@ app.post('/SendEmail', function (req, res) {
 
     var reqObj = req.body;
 
-    var subject = reqObj["name"] + " - " + reqObj["email"] + " - " + reqObj["address"] + " - " + reqObj["phone"] + " - " + reqObj["subject"];
-    var text = reqObj["message"];
+    var subject = "לשנות שם נושא - ליד חדש אתר מירן";
+
+
+    //var text = reqObj["message"];
+
+
 
     var mailOptions = {
       from: 'testeee777@gmail.com',
       to: 'barkobi57@gmail.com',
       subject: subject,
-      text: text
+      //text: text,
+
+
+      html: ''
+        + '<div>'  
+
+        + '<div>'
+        + '<span> שם מלא: <span>'
+        + '<span>' + reqObj["name"] + '<span>'
+        + '</div>'
+
+        + '<br />'
+
+        + '<div>'
+        + '<span> אימייל: <span>'
+        + '<span>' + reqObj["email"] + '<span>'
+        + '</div>'
+
+        + '<br/>'
+
+
+        + '<div>'
+        + '<span> כתובת: <span>'
+        + '<span>' + reqObj["address"] + '<span>'
+        + '</div>'
+
+        + '<br />'
+
+
+        + '<div>'
+        + '<span> מספר טלפון: <span>'
+        + '<span>' + reqObj["phone"] + '<span>'
+        + '</div>'
+
+        + '<br />'
+
+
+        + '<div>'
+        + '<span>  נושא: <span>'
+        + '<span>' + reqObj["subject"] + '<span>'
+        + '</div>'
+
+        + '<br />'
+
+
+        + '<div>'
+        + '<span> הודעה: <span>'
+        + '<span>' + reqObj["name"] + '<span>'
+        + '</div>'
+
+        + '<br />'
+
+        + '<div>'
+
     };
 
 
@@ -96,8 +153,8 @@ app.post('/SendEmail', function (req, res) {
       }
 
     });
-  } 
-  
+  }
+
   catch (error) {
     console.log('Email Not sent!');
     res.send(error);
