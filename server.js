@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = 5000
 
+const cors = require('cors');
 
 
 app.listen(port, () => {
@@ -9,12 +10,9 @@ app.listen(port, () => {
 })
 
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Origin", "Origin, X-requestd-With, Context-Type, Accept");
-  next();
-})
-
+app.use(cors({
+  origin: '*'
+}));
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
