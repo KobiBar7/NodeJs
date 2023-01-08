@@ -108,24 +108,8 @@ app.post('/SendEmail', function (req, res) {
 
 
         + '<div>'
-        + '<span> כתובת: <span>'
-        + '<span>' + reqObj["address"] + '<span>'
-        + '</div>'
-
-        + '<br />'
-
-
-        + '<div>'
         + '<span> מספר טלפון: <span>'
         + '<span>' + reqObj["phone"] + '<span>'
-        + '</div>'
-
-        + '<br />'
-
-
-        + '<div>'
-        + '<span>  נושא: <span>'
-        + '<span>' + reqObj["subject"] + '<span>'
         + '</div>'
 
         + '<br />'
