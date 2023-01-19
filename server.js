@@ -61,7 +61,67 @@ app.get('/Test', function (req, res) {
 })
 
 
-app.post('/SendEmail', function (req, res) {
+app.post('/AddGoogleSheet', function (req, res) {
+
+  (async function () {
+
+    var ObjRes = {
+      ['val']: 1,
+      ['error']: '',
+    }
+
+    try {
+      var google_sheets_credentials = require("./google_sheets_credentials");
+
+      var reqObj = req.body;
+
+      const { GoogleSpreadsheet } = require('google-spreadsheet');
+
+      // Initialize the sheet - doc ID is the long id in the sheets URL
+      const doc = new GoogleSpreadsheet(google_sheets_credentials.googleSpreadsheet);
+
+      // Initialize Auth - see https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication
+      await doc.useServiceAccountAuth({
+
+        client_email: google_sheets_credentials.client_email,
+        private_key: google_sheets_credentials.private_key,
+      });
+
+      await doc.loadInfo(); // loads document properties and worksheets
+      console.log(doc.title);
+
+
+      const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
+
+      //const sheet = await doc.addSheet({ headerValues: ['title',] });
+
+      // append rows
+      const larryRow = await sheet.addRow({
+        'תאריך': reqObj["Date"],
+        'שם': reqObj["Name"],
+        'טלפון': reqObj["Phone"],
+        'כתובת': reqObj["Address"],
+        'אימייל': reqObj["Email"],
+        'הודעה': reqObj["Message"],
+      });
+    }
+
+
+    catch (error) {
+      ObjRes['val'] = -1;
+      ObjRes['error'] = error;
+      res.send(ObjRes);
+
+    }
+    res.send(ObjRes);
+
+  }());
+
+})
+
+
+
+app.post('/SendEmailArch', function (req, res) {
 
   try {
     var transporter = nodemailer.createTransport({
@@ -72,15 +132,10 @@ app.post('/SendEmail', function (req, res) {
       }
     });
 
-
     var reqObj = req.body;
-
-    var subject = "לשנות שם נושא - ליד חדש אתר מירן";
-
+    var subject = reqObj["Name"] + ' - ' + 'ליד חדש';
 
     //var text = reqObj["message"];
-
-
 
     var mailOptions = {
       from: 'testeee777@gmail.com',
@@ -90,26 +145,42 @@ app.post('/SendEmail', function (req, res) {
 
 
       html: ''
-        + '<div>'  
+        + '<div dir="rtl">'
+
+        + '<div>'
+        + '<span> תאריך: <span>'
+        + '<span>' + reqObj["Date"] + '<span>'
+        + '</div>'
+
+        + '<br />'
 
         + '<div>'
         + '<span> שם מלא: <span>'
-        + '<span>' + reqObj["name"] + '<span>'
+        + '<span>' + reqObj["Name"] + '<span>'
         + '</div>'
 
         + '<br />'
 
         + '<div>'
         + '<span> אימייל: <span>'
-        + '<span>' + reqObj["email"] + '<span>'
+        + '<span>' + reqObj["Email"] + '<span>'
         + '</div>'
 
         + '<br/>'
 
 
+
+
         + '<div>'
         + '<span> מספר טלפון: <span>'
-        + '<span>' + reqObj["phone"] + '<span>'
+        + '<span>' + reqObj["Phone"] + '<span>'
+        + '</div>'
+
+        + '<br />'
+
+        + '<div>'
+        + '<span> כתובת : <span>'
+        + '<span>' + reqObj["Address"] + '<span>'
         + '</div>'
 
         + '<br />'
@@ -117,7 +188,7 @@ app.post('/SendEmail', function (req, res) {
 
         + '<div>'
         + '<span> הודעה: <span>'
-        + '<span>' + reqObj["name"] + '<span>'
+        + '<span>' + reqObj["Message"] + '<span>'
         + '</div>'
 
         + '<br />'
@@ -145,5 +216,4 @@ app.post('/SendEmail', function (req, res) {
   }
 
 })
-
 

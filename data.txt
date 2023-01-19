@@ -1,0 +1,27 @@
+
+Dashboard Render:
+barkobi57@gmail.com
+Dr!q2sx587=m
+------------------------------------------------------------------------------------------------------------------------------------
+
+Github:
+barkobi57@gmail.com
+user - KobiBar7
+pass - Git3ed%gtvh
+token - Cfgj85jg94jgj3j1q!23
+
+https://github.com/KobiBar7/NodeJs.git
+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
+------------------------------------------------------------------------------------------------------------------------------------
+
+GIT:
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/KobiBar7/NodeJs.git
+git push -u origin main
+------------------------------------------------------------------------------------------------------------------------------------
+
+NODE:
+node --inspect server.js
