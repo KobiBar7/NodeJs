@@ -103,6 +103,7 @@ app.post('/AddGoogleSheet', function (req, res) {
         'כתובת': reqObj["Address"],
         'אימייל': reqObj["Email"],
         'הודעה': reqObj["Message"],
+	'מכשיר': reqObj["UserAgent"],
       });
     }
 
