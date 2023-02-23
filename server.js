@@ -61,7 +61,7 @@ app.get('/Test', function (req, res) {
 })
 
 
-app.post('/AddGoogleSheet', function (req, res) {
+app.post('/Arch_AddNewSheet', function (req, res) {
 
   (async function () {
 
@@ -71,20 +71,20 @@ app.post('/AddGoogleSheet', function (req, res) {
     }
 
     try {
-      var google_sheets_credentials = require("./google_sheets_credentials");
+      var google_sheets_arch_newUsers = require("./google_sheets_arch_newUsers");
 
       var reqObj = req.body;
 
       const { GoogleSpreadsheet } = require('google-spreadsheet');
 
       // Initialize the sheet - doc ID is the long id in the sheets URL
-      const doc = new GoogleSpreadsheet(google_sheets_credentials.googleSpreadsheet);
+      const doc = new GoogleSpreadsheet(google_sheets_arch_newUsers.googleSpreadsheet);
 
       // Initialize Auth - see https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication
       await doc.useServiceAccountAuth({
 
-        client_email: google_sheets_credentials.client_email,
-        private_key: google_sheets_credentials.private_key,
+        client_email: google_sheets_arch_newUsers.client_email,
+        private_key: google_sheets_arch_newUsers.private_key,
       });
 
       await doc.loadInfo(); // loads document properties and worksheets
@@ -103,8 +103,92 @@ app.post('/AddGoogleSheet', function (req, res) {
         'כתובת': reqObj["Address"],
         'אימייל': reqObj["Email"],
         'הודעה': reqObj["Message"],
-	'מכשיר': reqObj["UserAgent"],
+        'מכשיר': reqObj["UserAgent"],
       });
+    }
+
+
+    catch (error) {
+      ObjRes['val'] = -1;
+      ObjRes['error'] = error;
+      res.send(ObjRes);
+
+    }
+    res.send(ObjRes);
+
+  }());
+
+})
+
+
+app.post('/Arch_UpdateGoogleSheetAnalytics', function (req, res) {
+
+  (async function () {
+
+    var ObJSheets = {
+      'Instagram': 0,
+      'Facebook': 0,
+      'Whatsapp': 0,
+    }
+
+    var ObjRes = {
+      ['val']: 1,
+      ['error']: '',
+    }
+
+    try {
+      var google_sheets_arch_analytics = require("./google_sheets_arch_analytics");
+
+      var reqObj = req.body;
+
+      const { GoogleSpreadsheet } = require('google-spreadsheet');
+
+      // Initialize the sheet - doc ID is the long id in the sheets URL
+      const doc = new GoogleSpreadsheet(google_sheets_arch_analytics.googleSpreadsheet);
+
+      // Initialize Auth - see https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication
+      await doc.useServiceAccountAuth({
+
+        client_email: google_sheets_arch_analytics.client_email,
+        private_key: google_sheets_arch_analytics.private_key,
+      });
+
+      await doc.loadInfo(); // loads document properties and worksheets
+      console.log(doc.title);
+
+
+      const worksheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
+
+      const rows = await worksheet.getRows();
+      rows.forEach((row) => {
+        console.log(row.Title);
+
+        ObJSheets.Instagram = parseInt(row.Instagram);
+        ObJSheets.Facebook = parseInt(row.Facebook);
+        ObJSheets.Whatsapp = parseInt(row.Whatsapp);
+
+
+      });
+
+      await rows[0].del();
+
+      if (ObJSheets[req.body.ColumnName] > -1) {
+        ObJSheets[req.body.ColumnName]++;
+      }
+
+      
+
+      //const worksheet = await doc.addSheet({ headerValues: ['title',] });
+
+
+
+      // append rows
+      const larryRow = await worksheet.addRow({
+        'Instagram': ObJSheets.Instagram,
+        'Facebook': ObJSheets.Facebook,
+        'Whatsapp': ObJSheets.Whatsapp,
+      });
+
     }
 
 
