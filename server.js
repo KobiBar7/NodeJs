@@ -127,8 +127,13 @@ app.post('/Arch_UpdateGoogleSheetAnalytics', function (req, res) {
 
     var ObJSheets = {
       'Instagram': 0,
+      'Waze': 0,
       'Facebook': 0,
       'Whatsapp': 0,
+      'CallPhone': 0,
+      'CheckMatch': 0,
+      'OpenFormModal': 0,
+      'AddNewUser': 0,
     }
 
     var ObjRes = {
@@ -166,9 +171,13 @@ app.post('/Arch_UpdateGoogleSheetAnalytics', function (req, res) {
         ObJSheets.Instagram = parseInt(row.Instagram);
         ObJSheets.Facebook = parseInt(row.Facebook);
         ObJSheets.Whatsapp = parseInt(row.Whatsapp);
-
-
+        ObJSheets.Waze = parseInt(row.Waze);
+        ObJSheets.CallPhone = parseInt(row.CallPhone);
+        ObJSheets.CheckMatch = parseInt(row.CheckMatch);
+        ObJSheets.OpenFormModal = parseInt(row.OpenFormModal);
+        ObJSheets.AddNewUser = parseInt(row.AddNewUser);
       });
+
 
       await rows[0].del();
 
@@ -176,21 +185,20 @@ app.post('/Arch_UpdateGoogleSheetAnalytics', function (req, res) {
         ObJSheets[req.body.ColumnName]++;
       }
 
-      
 
       //const worksheet = await doc.addSheet({ headerValues: ['title',] });
-
-
-
       // append rows
       const larryRow = await worksheet.addRow({
         'Instagram': ObJSheets.Instagram,
         'Facebook': ObJSheets.Facebook,
         'Whatsapp': ObJSheets.Whatsapp,
+        'Waze': ObJSheets.Waze,
+        'CallPhone': ObJSheets.CallPhone,
+        'CheckMatch': ObJSheets.CheckMatch,
+        'OpenFormModal': ObJSheets.OpenFormModal,
+        'AddNewUser': ObJSheets.AddNewUser,
       });
-
     }
-
 
     catch (error) {
       ObjRes['val'] = -1;
