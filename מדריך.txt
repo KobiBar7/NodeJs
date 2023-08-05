@@ -25,3 +25,8 @@ git push -u origin main
 
 NODE:
 node --inspect server.js
+
+------------------------------------------------------------------------------------------------------------------------------------
+formail060@gmail.com
+formail0601q2w
+loezuwrwbwwiwqqa

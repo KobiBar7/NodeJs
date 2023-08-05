@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 
 
 
-app.get('/Test', function (req, res) {
+app.get('/Test', function (req, res) {  debugger
   var listResultObJ = "okkkkkkkkkk";
   res.send(listResultObJ);
 })
@@ -221,9 +221,10 @@ app.post('/SendEmailArch', function (req, res) {
       service: 'gmail',
       auth: {
         user: 'testeee777@gmail.com',
-        pass: 'ulananlpkmktdtcb'
+        pass: 'fjatebyhujflnntv'
       }
     });
+
 
     var reqObj = req.body;
     var subject = reqObj["Name"] + ' - ' + 'ליד חדש';
@@ -291,7 +292,7 @@ app.post('/SendEmailArch', function (req, res) {
     };
 
 
-    transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, function (error, info) {debugger
       if (error) {
         console.log(error);
         res.send(error);
@@ -310,3 +311,59 @@ app.post('/SendEmailArch', function (req, res) {
 
 })
 
+
+
+
+app.post('/SendEmail', function (req, res) {
+
+  try {
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'formail060@gmail.com',
+        pass: 'loezuwrwbwwiwqqa'
+      },
+
+      tls: {
+        rejectUnauthorized: false
+    }
+    });
+
+
+    var reqObj = req.body;
+    var subject = reqObj["subject"];
+    var html = reqObj["TextFile"];
+
+
+    //var text = reqObj["message"];
+
+    var mailOptions = {
+      from: 'formail060@gmail.com',
+      to: 'barkobi57@gmail.com',
+      subject: subject,
+      //text: text,
+
+
+      html: html
+
+    };
+
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+        res.send(error);
+      } else {
+        console.log('Email sent!');
+        res.send(info);
+      }
+
+    });
+  }
+
+  catch (error) {
+    console.log('Email Not sent!');
+    res.send(error);
+  }
+
+})
