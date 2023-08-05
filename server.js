@@ -332,7 +332,7 @@ app.post('/SendEmailYad', function (req, res) {
 
   
 
-    var reqObj = req.body;
+    var reqObj = JSON.parse(req.body.jsonObj);
     var subject = reqObj["subject"];
     var html = reqObj["TextFile"];
 
