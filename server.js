@@ -228,6 +228,8 @@ app.post('/SendEmailArch', function (req, res) {
 
     var reqObj = req.body;
     var subject = reqObj["Name"] + ' - ' + 'ליד חדש';
+    var emailTo = reqObj["EmailTo"];
+
 
     //var text = reqObj["message"];
 
@@ -343,7 +345,7 @@ app.post('/SendEmailYad', function (req, res) {
 
     var mailOptions = {
       from: 'formail060@gmail.com',
-      to: 'barkobi57@gmail.com',
+      to: emailTo,
       subject: subject,
       //text: text,
 
