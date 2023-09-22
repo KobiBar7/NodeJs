@@ -394,13 +394,14 @@ app.post('/SendEmail', function (req, res) {
     var reqObj = req.body;
     var subject = reqObj["subject"];
     var html = reqObj["TextFile"];
+    var emailTo = reqObj["EmailTo"];
 
 
     //var text = reqObj["message"];
 
     var mailOptions = {
       from: 'formail060@gmail.com',
-      to: 'barkobi57@gmail.com',
+      to: emailTo,
       subject: subject,
       //text: text,
 
