@@ -235,7 +235,7 @@ app.post('/SendEmailArch', function (req, res) {
 
     var mailOptions = {
       from: 'testeee777@gmail.com',
-      to: 'barkobi57@gmail.com',
+      to: emailTo,
       subject: subject,
       //text: text,
 
