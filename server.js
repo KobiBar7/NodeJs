@@ -222,14 +222,19 @@ app.post('/SendEmailArch', function (req, res) {
       auth: {
         user: 'formail060@gmail.com',
         pass: 'loezuwrwbwwiwqqa'  
-      }
+      },
+
+      tls: {
+        rejectUnauthorized: false
+      }      
+      
     });
 
 
     var reqObj = req.body;
     var subject = reqObj["Name"] + ' - ' + 'ליד חדש';
-    var emailTo = reqObj["EmailTo"];
-
+    var emailTo = 'barkobi57@gmail.com'; // mirankatzav@gmail.com
+    
 
     //var text = reqObj["message"];
 
@@ -329,7 +334,7 @@ app.post('/SendEmailYad', function (req, res) {
 
       tls: {
         rejectUnauthorized: false
-    }
+      }
     });
 
   
