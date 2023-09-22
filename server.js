@@ -233,7 +233,7 @@ app.post('/SendEmailArch', function (req, res) {
 
     var reqObj = req.body;
     var subject = reqObj["Name"] + ' - ' + 'ליד חדש';
-    var emailTo = 'barkobi57@gmail.com'; // mirankatzav@gmail.com
+    var emailTo = 'mirankatzav@gmail.com'; // 
     
 
     //var text = reqObj["message"];
