@@ -220,8 +220,8 @@ app.post('/SendEmailArch', function (req, res) {
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'testeee777@gmail.com',
-        pass: 'fjatebyhujflnntv'
+        user: 'formail060@gmail.com',
+        pass: 'loezuwrwbwwiwqqa'  
       }
     });
 
